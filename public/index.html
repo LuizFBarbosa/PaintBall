@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Paintball 3D - Multiníveis</title>
+  <link rel="icon" href="data:," />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/PointerLockControls.js"></script>
+</head>
+<body>
+  <div id="game-container">
+    <!-- LOGIN -->
+    <div id="login-screen" class="overlay">
+      <h1>🎯 Paintball 3D</h1>
+      <p>Escolha seu nome e equipe!</p>
+      <input type="text" id="player-name" placeholder="Nome" maxlength="15" />
+      <div class="team-options">
+        <button id="team-red-btn" class="team-btn red">Vermelho</button>
+        <button id="team-blue-btn" class="team-btn blue">Azul</button>
+      </div>
+      <button id="join-btn" disabled>Entrar</button>
+      
+      <!-- NOVO: Informações do nível -->
+      <div class="level-info">
+        <h3>Níveis Disponíveis:</h3>
+        <div class="level-list">
+          <div class="level-item">
+            <strong>Nível 1:</strong> Praça Central
+            <p>Área aberta com poucos esconderijos</p>
+          </div>
+          <div class="level-item">
+            <strong>Nível 2:</strong> Floresta Escura
+            <p>Muitas árvores para se esconder</p>
+          </div>
+          <div class="level-item">
+            <strong>Nível 3:</strong> Complexo Industrial
+            <p>Corredores e paredes estratégicas</p>
+          </div>
+        </div>
+        <p class="level-hint">Pressione <strong>L</strong> durante o jogo para trocar de nível</p>
+      </div>
+    </div>
+
+    <!-- HUD -->
+    <div id="hud" class="hidden">
+      <!-- NOVO: Informações do nível atual -->
+      <div class="level-display">
+        <div class="level-name" id="level-info">Carregando...</div>
+        <div class="level-description" id="level-description">...</div>
+      </div>
+      
+      <div>Equipe: <span id="player-team">-</span></div>
+      <div id="ammo-info">Munição: <span id="ammo-count">30</span></div>
+      <button id="reload-btn" disabled>Recarregar</button>
+      <div id="wave-info">Onda: 1</div>
+      <div id="scoreboard">
+        <div class="red">🔴 <span id="red-score">0</span></div>
+        <div class="blue">🔵 <span id="blue-score">0</span></div>
+      </div>
+      <div id="team-stats">
+        <div class="red">🔴 <span id="zombie-kills-red">Zumbis abatidos: 0</span></div>
+        <div class="blue">🔵 <span id="zombie-kills-blue">Zumbis abatidos: 0</span></div>
+      </div>
+      <div id="player-shield" class="hidden">🛡️ Escudo Ativo</div>
+      
+      <!-- NOVO: Controles mobile -->
+      <div id="mobile-controls" class="hidden">
+        <div class="joystick-container">
+          <div class="joystick"></div>
+        </div>
+        <div class="fire-button">🔫</div>
+      </div>
+    </div>
+
+    <!-- TELAS -->
+    <div id="eliminated-screen" class="overlay hidden">
+      <h2>Eliminado!</h2>
+      <p>Encontre um power-up de saúde para retornar ao jogo</p>
+    </div>
+    <div id="gameover-screen" class="overlay hidden">
+      <h2>Fim! <span id="winner-team-name"></span> venceu!</h2>
+      <p>O jogo será reiniciado em breve...</p>
+    </div>
+
+    <!-- MINIMAPA -->
+    <div id="minimap"><canvas id="minimap-canvas"></canvas></div>
+
+    <!-- CHAT -->
+    <div id="chat-container" class="hidden">
+      <div id="chat-box">
+        <div id="chat-messages"></div>
+        <input type="text" id="chat-input" placeholder="Chat da equipe..." />
+      </div>
+    </div>
+
+    <!-- CROSSHAIR -->
+    <div id="crosshair"></div>
+
+    <!-- CONEXÃO -->
+    <div id="connection-indicator"><div id="connection-status">Conectando...</div></div>
+	<!-- Adicionar dentro da div id="login-screen" após os controles existentes -->
+	<div class="controls-info">
+	  <h3>Controles Avançados:</h3>
+	  <p><strong>Q:</strong> <span style="color: #00ff00;">Ativar Visor Dragon Ball</span></p>
+	  <p>Detecta zumbis à distância e veja suas informações!</p>
+	</div>
+	
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

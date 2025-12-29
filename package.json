@@ -1,0 +1,14 @@
+{
+  "name": "paintball-multiplayer",
+  "version": "1.0.0",
+  "description": "A multiplayer paintball game using Three.js and Socket.IO",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "socket.io": "^4.8.1",
+    "three": "^0.180.0"
+  }
+}
